@@ -304,6 +304,10 @@ LANGCHAIN_PROJECT=""                   # LangSmith project name for traces
 # === LLM ===
 ANTHROPIC_API_KEY=""                   # Anthropic API key (default provider)
 
+# === LM Studio (optional - for local models) ===
+LMSTUDIO_BASE_URL="http://localhost:1234/v1"  # LM Studio API endpoint
+LMSTUDIO_API_KEY="sk-placeholder"             # Dummy key (required by LangChain)
+
 # === GitHub App (required) ===
 GITHUB_APP_ID=""                       # From step 3c
 GITHUB_APP_PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----

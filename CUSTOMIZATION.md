@@ -175,16 +175,36 @@ You can route to different models based on task complexity, repo, or trigger sou
 ```python
 async def get_agent(config: RunnableConfig) -> Pregel:
     source = config["configurable"].get("source")
-    
+
     if source == "slack":
         # Faster model for Slack Q&A
         model = make_model("anthropic:claude-sonnet-4-6", temperature=0, max_tokens=16_000)
     else:
         # Full model for code changes from Linear
         model = make_model("anthropic:claude-opus-4-6", temperature=0, max_tokens=20_000)
-    
+
     return create_deep_agent(model=model, ...)
 ```
+
+### Using LM Studio (local OpenAI-compatible endpoint)
+
+LM Studio provides an OpenAI-compatible API for running local models. Configure it with:
+
+```bash
+# Environment variables
+export LMSTUDIO_BASE_URL="http://localhost:1234/v1"  # Default if not set
+export LMSTUDIO_API_KEY="sk-placeholder"              # Dummy key (required by LangChain)
+```
+
+Then use the `lmstudio:` prefix in your model configuration:
+
+```python
+model=make_model("lmstudio:llama3", temperature=0, max_tokens=16_000)
+```
+
+The model name after the prefix (`llama3` above) should match what LM Studio reports for your loaded model. Common values include `llama3`, `mistral`, `gemma`, etc. Check your LM Studio interface for the exact model identifier.
+
+**Note**: Ensure LM Studio is running and has a model loaded before starting the agent.
 
 ---
 
